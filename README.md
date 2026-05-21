@@ -10,7 +10,7 @@ A continuación, se presenta el análisis de calidad previo a la implementación
 
 | Partición | Rango cubierto | Valor representativo | Resultado esperado |
 |---|---|---|---|
-| Válida (nota típica) | 0.0 — 5.0 (incl.) | 3.5 | Aceptada (nota válida) |
+| Válida (nota típica) | 0.0 — 5.0| 3.5 | Aceptada (nota válida) |
 | Válida (límite inferior) | 0.0 | 0.0 | Aceptada (nota válida) |
 | Válida (límite superior) | 5.0 | 5.0 | Aceptada (nota válida) |
 | Inválida (menor que mínimo) | < 0.0 | -1.0 | Rechazada (fuera de rango) |
