@@ -73,3 +73,12 @@ T12 | Req 4 | Insertar nota con distinto assessment_id (no duplicado) | Existe n
 Notas generales: muchos resultados esperan comportamientos que deben confirmarse con el Product Owner (por ejemplo el `umbral de aprobación` y la política exacta sobre duplicados: rechazar vs actualizar). Ajustar `Datos de entrada` y `Resultado esperado` tras la confirmación.
 
 
+## PARTE 6 — Reflexión
+
+- ¿qué diferencia notaste entre diseñar los casos de prueba en la tabla antes de escribir código versus simplemente ponerte a programar directamente?
+
+R// Diseñar los casos de prueba primero obliga a pensar en el software desde las restricciones del negocio y los caminos de error. Al hacer la tabla, se identifican variables ocultas como el para evitar bloqueos falsos pero si se hubiera programado directamente, habría construido el "camino feliz" y parcheado los errores después, lo que suele generar código frágil.
+
+- ¿qué fue lo más difícil de seguir el ciclo TDD y en qué momento sentiste la tentación de saltarte algún paso?
+
+R// No saber como iniciar a escribir la prueba sin antes tener la logica de negocio codificada, ya que por lo general se acostumbra a escribir codigo y luego probar o refactorizar ese codigo-
