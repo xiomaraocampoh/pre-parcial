@@ -1,0 +1,26 @@
+name: CI Pruebas de Software
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+    
+    - name: Instalar uv
+      uses: astral-sh/setup-uv@v2
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12" # uv maneja el >=3.14 pero GitHub actions usa este setup base
+        
+    - name: Instalar dependencias
+      run: uv sync
+        
+    - name: Ejecutar Unitarias, BDD y Validar Cobertura
+      run: uv run pytest --cov=src --cov-fail-under=85 --cov-report=term-missing
