@@ -16,7 +16,7 @@ def test_ingresar_nota_menor_que_cero():
     assert registro.obtener_promedio(100) is None
 
 
-def testingresar_nota_limite_inferior():
+def test_ingresar_nota_limite_inferior():
     registro = RegistroNotas()
     resultado = registro.registrar_nota(100, 200, "2026-1", 0.0)
     assert resultado == "Nota aceptada"
@@ -41,7 +41,7 @@ def test_nota_justo_despues_del_umbral():
     assert estado == "Aprobado"
 
 
-def tes_promedio_estudiante_sin_notas():
+def test_promedio_estudiante_sin_notas():
     registro = RegistroNotas()
     assert registro.obtener_promedio(999) is None
 
