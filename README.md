@@ -53,4 +53,23 @@ Observación: si el sistema trabaja con precisión limitada (por ejemplo, dos de
 
 He documentado las particiones de equivalencia, los análisis de valores límite y las preguntas al Product Owner necesarias para diseñar pruebas del requisito 1 y del requisito 4.
 
+## Casos de prueba
+
+ID | Requerimiento | Descripción | Precondición | Datos de entrada | Pasos | Resultado esperado | Tipo
+:-- | :-- | :-- | :-- | :-- | :-- | :-- | :--
+T01 | Req 1 | Ingresar nota válida típica | Sistema listo para recibir notas; estudiante y materia existen | nota = 3.5, student_id=100, course_id=200 | 1) Ir a formulario de nota 2) Ingresar datos 3) Enviar | Nota aceptada y almacenada; mensaje de éxito | Positivo
+T02 | Req 1 | Ingresar nota menor que 0.0 (inválida) | Sistema listo; estudiante y materia existen | nota = -1.0 | 1) Abrir formulario 2) Ingresar -1.0 3) Enviar | Rechazo con mensaje de validación: "Nota fuera de rango"; no se guarda | Negativo
+T03 | Req 1 | Ingresar nota en límite inferior 0.0 | Sistema listo; estudiante y materia existen | nota = 0.0 | 1) Completar formulario 2) Enviar | Aceptada; guardada como nota válida | Borde
+T04 | Req 2 | Nota justo antes del umbral de aprobación | Umbral de aprobación definido como 3.0 (precondición) | nota = 2.99 | 1) Ingresar nota 2) Enviar | Considerada NO aprobatoria; estado "Reprobado" o equivalente | Borde
+T05 | Req 2 | Nota igual al umbral de aprobación | Umbral = 3.0 | nota = 3.00 | 1) Ingresar nota 3.00 2) Enviar | Considerada aprobatoria; estado "Aprobado" | Borde
+T06 | Req 2 | Nota justo después del umbral | Umbral = 3.0 | nota = 3.01 | 1) Ingresar nota 3.01 2) Enviar | Considerada aprobatoria; estado "Aprobado" | Positivo
+T07 | Req 3 | Consultar promedio de estudiante sin notas | Estudiante sin registros de notas en la BD | student_id = 999 (sin notas) | 1) Abrir perfil del estudiante 2) Ver sección de notas/promedio | Mostrar indicación "Sin notas" o promedio nulo; no error | Negativo
+T08 | Req 3 | Consultar promedio con una nota | Estudiante con una nota registrada | student_id=101 notas=[4.0] | 1) Abrir perfil 2) Ver promedio | Promedio mostrado = 4.0 | Positivo
+T09 | Req 3 | Consultar promedio con múltiples notas | Estudiante con varias notas registradas | student_id=102 notas=[3.0,4.0,5.0] | 1) Abrir perfil 2) Ver promedio | Promedio calculado = 4.0 (suma/contador) | Positivo
+T10 | Req 4 | Insertar nota duplicada (misma student+course+semester) | Existe nota previa con mismos identificadores | nueva nota = 4.0 para student_id=103, course_id=300, semester=2026-1 (ya existe) | 1) Intentar crear la nueva nota 2) Enviar | Rechazada con mensaje de duplicado; no se crea registro adicional | Negativo
+T11 | Req 4 | Insertar misma materia en semestre diferente (permitido) | Existe nota previa en semestre distinto | nueva nota = 4.5 para student_id=103, course_id=300, semester=2026-2 (existe 2026-1) | 1) Crear nota 2) Enviar | Aceptada y almacenada como registro distinto | Positivo
+T12 | Req 4 | Insertar nota con distinto assessment_id (no duplicado) | Existe nota con mismo student+course pero distinto assessment_id | nueva nota = 4.0, assessment_id=2; existe assessment_id=1 | 1) Crear nota 2) Enviar | Aceptada; ambas notas coexistirán si la clave incluye assessment_id | Positivo
+
+Notas generales: muchos resultados esperan comportamientos que deben confirmarse con el Product Owner (por ejemplo el `umbral de aprobación` y la política exacta sobre duplicados: rechazar vs actualizar). Ajustar `Datos de entrada` y `Resultado esperado` tras la confirmación.
+
 
