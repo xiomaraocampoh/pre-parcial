@@ -35,24 +35,24 @@ def test_nota_igual_al_umbral():
     assert estado == "Aprobado"
 
 
-def test_T06_req2_nota_justo_despues_del_umbral_aprobado():
+def test_nota_justo_despues_del_umbral():
     registro = RegistroNotas()
     estado = registro.obtener_estado(3.01)
     assert estado == "Aprobado"
 
 
-def test_T07_req3_promedio_estudiante_sin_notas():
+def tes_promedio_estudiante_sin_notas():
     registro = RegistroNotas()
     assert registro.obtener_promedio(999) is None
 
 
-def test_T08_req3_promedio_con_una_nota():
+def test_promedio_con_una_nota():
     registro = RegistroNotas()
     registro.registrar_nota(101, 201, "2026-1", 4.0)
     assert registro.obtener_promedio(101) == pytest.approx(4.0)
 
 
-def test_T09_req3_promedio_con_varias_notas():
+def test_promedio_con_varias_notas():
     registro = RegistroNotas()
     registro.registrar_nota(102, 202, "2026-1", 3.0)
     registro.registrar_nota(102, 203, "2026-1", 4.0)
@@ -60,14 +60,14 @@ def test_T09_req3_promedio_con_varias_notas():
     assert registro.obtener_promedio(102) == pytest.approx(4.0)
 
 
-def test_T10_req4_insertar_nota_duplicada_mismo_semestre_rechazo():
+def test_insertar_nota_duplicada_mismo_semestre():
     registro = RegistroNotas()
     registro.registrar_nota(103, 300, "2026-1", 4.0)
     with pytest.raises(ValueError, match="Materia ya registrada este semestre"):
         registro.registrar_nota(103, 300, "2026-1", 4.0)
 
 
-def test_T11_req4_insertar_misma_materia_semestre_diferente():
+def test_insertar_misma_materia_semestre_diferente():
     registro = RegistroNotas()
     registro.registrar_nota(103, 300, "2026-1", 4.0)
     resultado = registro.registrar_nota(103, 300, "2026-2", 4.5)
@@ -75,7 +75,7 @@ def test_T11_req4_insertar_misma_materia_semestre_diferente():
     assert registro.obtener_promedio(103) == pytest.approx((4.0 + 4.5) / 2)
 
 
-def test_T12_req4_insertar_distinto_assessment_id_no_duplicado():
+def test_insertar_distinto_assessment_id_no_duplicado():
     registro = RegistroNotas()
     registro.registrar_nota(104, 300, "2026-1", 4.0, assessment_id=1)
     resultado = registro.registrar_nota(104, 300, "2026-1", 4.0, assessment_id=2)
